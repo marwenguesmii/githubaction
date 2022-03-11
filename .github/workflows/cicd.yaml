@@ -29,6 +29,7 @@ jobs:
         with:
           command: |
             vault kv put secret/preview/pr-${{ secrets.VaultToken }} test=test \
-            marwen=marwen
+            marwen=marwen \
+            guesmi=guesmi
           token: ${{ secrets.VaultToken }}
 
