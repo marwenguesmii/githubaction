@@ -22,6 +22,6 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            echo ${{steps.secretsJob.outputs.EMBEDDER_URL}}
+            echo "${{steps.secretsJob.outputs.EMBEDDER_URL}}""
 
 
