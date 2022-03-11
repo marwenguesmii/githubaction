@@ -1,0 +1,28 @@
+name: testing pipeline
+
+on:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  backend:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Imports Secrets
+        id: secretsJob
+        uses: hashicorp/vault-action@v2.3.1
+        with:
+          url: https://vault.outmind.fr
+          token: ${{ secrets.VaultToken }}
+          secrets: |
+                secret/data/embedder EMBEDDER_URL | EMBEDDER_URL ;
+
+      - name: echo secrets
+        id: echo
+        uses: actions/github-script@v6
+        with:
+          script: |
+            echo ${{secretsJob.outputs.EMBEDDER_URL}}
+
+
