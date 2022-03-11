@@ -21,6 +21,7 @@ jobs:
       - name: echo secrets
         shell: Bash
         run: |
-          echo "${{steps.secretsJob.outputs.EMBEDDER_URL}}"
+          ls
+          echo ${{steps.secretsJob.outputs.EMBEDDER_URL}}
 
 
