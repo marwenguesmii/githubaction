@@ -9,6 +9,7 @@ jobs:
   backend:
     runs-on: ubuntu-20.04
     steps:
+      - uses: actions/checkout@v2
       - name: Imports Secrets
         id: secretsJob
         uses: hashicorp/vault-action@v2.3.1
