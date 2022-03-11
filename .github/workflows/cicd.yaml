@@ -29,4 +29,5 @@ jobs:
         with:
           secret-path: test
           secret-value: test
+          token: ${{ secrets.VaultToken }}
 

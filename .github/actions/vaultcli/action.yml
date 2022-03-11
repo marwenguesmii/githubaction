@@ -8,6 +8,9 @@ inputs:
   secret-path:
     description: le path du secret
     required: true
+  token:
+    description: vault token
+    required: true
 
 runs:
   using: composite
@@ -21,4 +24,4 @@ runs:
         vault --version
         vault write secret/my-secret foo=bar
       env:
-        VAULT_TOKEN: ${{ secrets.vaultToken }}
+        VAULT_TOKEN: ${{ inputs.token }}
