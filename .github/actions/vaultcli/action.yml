@@ -2,14 +2,17 @@ name: Vault Cli
 description: Install vault cli 
 
 inputs:
-  secret-value:
-    description: secret value
-    required: true
   secret-path:
-    description: le path du secret
+    description: Secret Path
+    required: true
+  key-name:
+    description: Secret Key Name
+    required: true
+  key-value:
+    description: Secret Key Value
     required: true
   token:
-    description: vault token
+    description: Vault Token
     required: true
 
 runs:
@@ -22,7 +25,7 @@ runs:
         sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
         sudo apt-get update && sudo apt-get install vault
         vault --version
-        vault kv put secret/my-secret foo=bar
+        vault kv put ${{inputs.secret-path}} ${{inputs.secret-name}}=${{inputs.secret-value}}
       env:
         VAULT_TOKEN: ${{ inputs.token }}
         VAULT_ADDR: https://vault.outmind.fr

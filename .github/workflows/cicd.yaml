@@ -27,7 +27,8 @@ jobs:
       - name: Vault
         uses: ./.github/actions/vaultcli
         with:
-          secret-path: test
-          secret-value: test
+          secret-path: secret/my-secret
+          key-name: marwen
+          key-value: guesmi
           token: ${{ secrets.VaultToken }}
 
