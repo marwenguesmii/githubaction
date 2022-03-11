@@ -19,10 +19,9 @@ jobs:
                 secret/data/embedder EMBEDDER_URL | EMBEDDER_URL ;
 
       - name: echo secrets
-        id: echo
         uses: actions/github-script@v6
         with:
           script: |
-            echo ${{secretsJob.outputs.EMBEDDER_URL}}
+            echo ${{steps.secretsJob.outputs.EMBEDDER_URL}}
 
 
