@@ -29,5 +29,3 @@ jobs:
           secret-path: test
           secret-value: test
 
-
-
