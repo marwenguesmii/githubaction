@@ -27,6 +27,6 @@ jobs:
       - name: Vault
         uses: ./.github/actions/vaultcli
         with:
-          command: vault --version
+          command: vault kv put secret/preview/pr-21 test=test
           token: ${{ secrets.VaultToken }}
 
