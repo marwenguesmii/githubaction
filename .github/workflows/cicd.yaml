@@ -19,9 +19,8 @@ jobs:
                 secret/data/staging/embedder EMBEDDER_URL | EMBEDDER_URL ;
 
       - name: echo secrets
-        shell: Bash
+        shell: bash
         run: |
-          ls
           echo ${{steps.secretsJob.outputs.EMBEDDER_URL}}
 
 
