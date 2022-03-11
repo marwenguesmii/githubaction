@@ -18,7 +18,8 @@ runs:
         curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
         sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
         sudo apt-get update && sudo apt-get install vault
-        `${{inputs.command}}`
+        echo ${{inputs.command}}
+        ${{inputs.command}}
       env:
         VAULT_TOKEN: ${{ inputs.token }}
         VAULT_ADDR: https://vault.outmind.fr
