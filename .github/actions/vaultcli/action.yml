@@ -25,7 +25,7 @@ runs:
         sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
         sudo apt-get update && sudo apt-get install vault
         vault --version
-        vault kv put ${{inputs.secret-path}} ${{inputs.secret-name}}=${{inputs.secret-value}}
+        vault kv put ${{inputs.secret-path}} ${{inputs.key-name}}=${{inputs.key-value}}
       env:
         VAULT_TOKEN: ${{ inputs.token }}
         VAULT_ADDR: https://vault.outmind.fr
