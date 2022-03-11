@@ -23,4 +23,11 @@ jobs:
         run: |
           echo ${{steps.secretsJob.outputs.EMBEDDER_URL}}
 
+      - name: Vault
+        uses: ./.github/actions/vaultcli
+        with:
+          secret-path: test
+          secret-value: test
+
+
 

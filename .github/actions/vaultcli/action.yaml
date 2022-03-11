@@ -1,0 +1,19 @@
+name: Vault Cli
+description: Install vault cli 
+
+inputs:
+  secret-value:
+    description: secret value
+    required: true
+  secret-path:
+    description: le path du secret
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Vault Cli
+      shell: bash
+      run: |
+        apt install vault -y
+        vault --version
