@@ -25,3 +25,4 @@ runs:
         vault write secret/my-secret foo=bar
       env:
         VAULT_TOKEN: ${{ inputs.token }}
+        VAULT_ADDR: https://vault.outmind.fr
