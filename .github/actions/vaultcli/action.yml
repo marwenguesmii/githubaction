@@ -15,5 +15,5 @@ runs:
     - name: Setup Vault Cli
       shell: bash
       run: |
-        apt install vault -y
+        sudo apt install vault -y
         vault --version
