@@ -16,7 +16,7 @@ jobs:
           url: https://vault.outmind.fr
           token: ${{ secrets.VaultToken }}
           secrets: |
-                secret/data/embedder EMBEDDER_URL | EMBEDDER_URL ;
+                secret/data/staging/embedder EMBEDDER_URL | EMBEDDER_URL ;
 
       - name: echo secrets
         uses: actions/github-script@v6
