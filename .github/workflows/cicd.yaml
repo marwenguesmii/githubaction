@@ -28,7 +28,7 @@ jobs:
         uses: ./.github/actions/vaultcli
         with:
           command: |
-            vault kv put secret/preview/pr-${{ true && '3' || '2'  }} test=test \
+            vault kv put secret/preview/pr-${{ false && '3' || '2'  }} test=test \
             marwen=marwen \
             guesmi=guesmi
           token: ${{ secrets.VaultToken }}
