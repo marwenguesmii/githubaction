@@ -19,17 +19,12 @@ jobs:
           secrets: |
                 secret/data/staging/embedder EMBEDDER_URL | EMBEDDER_URL ;
 
-      - name: echo secrets
-        shell: bash
+  frontend:
+    needs: backend
+    runs-on: ubuntu-20.04
+    steps:
+      - shell: bash
         run: |
-          echo ${{steps.secretsJob.outputs.EMBEDDER_URL}}
+          export
 
-      - name: Vault
-        uses: ./.github/actions/vaultcli
-        with:
-          command: |
-            vault kv put secret/preview/pr-${{ false && '3' || format('pr-{0}', secrets.VaultToken)   }} test=test \
-            marwen=marwen \
-            guesmi=guesmi
-          token: ${{ secrets.VaultToken }}
 
