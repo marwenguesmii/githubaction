@@ -15,13 +15,14 @@ jobs:
         uses: hashicorp/vault-action@v2.3.1
         with:
           url: https://vault.outmind.fr
-          token: ${{ secrets.VAULTTOKEN}}
+          method: approle
+          roleId: bf5548e5-50fb-42f4-37fd-81ce0899242f
+          secretId: beb9c24c-54ab-bf04-6634-a7aa7f57ec7f
           secrets: |
                 secret/data/staging/embedder EMBEDDER_URL | EMBEDDER_URL ;
       - shell: bash
         run: |
           export | grep EMBEDDER_URL
-
 
 
 
