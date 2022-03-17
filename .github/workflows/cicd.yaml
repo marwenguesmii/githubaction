@@ -28,6 +28,6 @@ jobs:
     steps:
       - shell: bash
         run: |
-          echo ${{github}}
+          echo ${{github.actor}}
 
 
