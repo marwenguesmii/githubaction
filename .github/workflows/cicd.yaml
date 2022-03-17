@@ -23,5 +23,6 @@ jobs:
       - shell: bash
         run: |
           export | grep EMBEDDER_URL
+          
 
 
