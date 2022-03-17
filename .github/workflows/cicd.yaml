@@ -28,6 +28,6 @@ jobs:
     steps:
       - shell: bash
         run: |
-          export
+          echo ${{github}}
 
 
