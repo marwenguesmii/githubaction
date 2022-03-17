@@ -19,7 +19,7 @@ jobs:
           roleId: bf5548e5-50fb-42f4-37fd-81ce0899242f
           secretId: beb9c24c-54ab-bf04-6634-a7aa7f57ec7f
           secrets: |
-                secret/data/staging/embedder EMBEDDER_URL | EMBEDDER_URL ;
+                secret/data/prod/box BOX_CLIENT_ID | BOX_CLIENT_ID ;
       - shell: bash
         run: |
           export | grep EMBEDDER_URL
