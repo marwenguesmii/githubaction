@@ -15,19 +15,13 @@ jobs:
         uses: hashicorp/vault-action@v2.3.1
         with:
           url: https://vault.outmind.fr
-          token: ${{ secrets.VaultToken }}
+          method: approle
+          roleId: auth/approle/role/githubAction-role
+          secretId: beb9c24c-54ab-bf04-6634-a7aa7f57ec7f
           secrets: |
                 secret/data/staging/embedder EMBEDDER_URL | EMBEDDER_URL ;
       - shell: bash
         run: |
-          export
-
-  frontend:
-    needs: backend
-    runs-on: ubuntu-20.04
-    steps:
-      - shell: bash
-        run: |
-          echo ${{github.actor}}
+          export | grep EMBEDDER_URL
 
 
