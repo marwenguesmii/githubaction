@@ -18,6 +18,9 @@ jobs:
           token: ${{ secrets.VaultToken }}
           secrets: |
                 secret/data/staging/embedder EMBEDDER_URL | EMBEDDER_URL ;
+      - shell: bash
+        run: |
+          export
 
   frontend:
     needs: backend
