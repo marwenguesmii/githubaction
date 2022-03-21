@@ -16,7 +16,9 @@ jobs:
       - name: Compute version
         id: version
         run: echo "::set-output name=version::testmarwen"
-
+      - shell: bash
+        run: |
+          echo ${{ github.ref }}
       - uses: actions/checkout@v2
       - name: Imports Secrets
         id: secretsJob
