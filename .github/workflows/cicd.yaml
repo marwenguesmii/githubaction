@@ -8,6 +8,10 @@ on:
 jobs:
   backend:
     runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+        stack: [app, bouygues, tnp, valgo]
     steps:
       - uses: actions/checkout@v2
       - name: Imports Secrets
@@ -25,7 +29,7 @@ jobs:
         with:
           roleId: ${{ secrets.ROLE_ID }}
           secretId: ${{ secrets.SECRET_ID }}
-          command: vault kv put secret/testing test=test
+          command: vault kv put secret/testing/${{ matrix.stack}} test=test
 
 
 
