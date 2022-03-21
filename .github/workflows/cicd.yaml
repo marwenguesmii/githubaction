@@ -13,6 +13,10 @@ jobs:
       matrix:
         stack: [app, bouygues, tnp, valgo]
     steps:
+      - name: Compute version
+        id: version
+        run: echo "::set-output name=version::testmarwen"
+
       - uses: actions/checkout@v2
       - name: Imports Secrets
         id: secretsJob
@@ -29,7 +33,7 @@ jobs:
         with:
           roleId: ${{ secrets.ROLE_ID }}
           secretId: ${{ secrets.SECRET_ID }}
-          command: vault kv put secret/testing/${{ matrix.stack}} test=test
+          command: vault kv put secret/testing/${{ matrix.stack}} test=${{ steps.version.outputs.version }}
 
 
 
