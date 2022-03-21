@@ -5,8 +5,11 @@ inputs:
   command:
     description: Vault Command to Execute
     required: true
-  token:
-    description: Vault Token
+  roleId:
+    description: Vault roleId
+    required: true
+  secretId:
+    description: Vault secretId
     required: true
 
 runs:
@@ -18,7 +21,7 @@ runs:
         curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
         sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
         sudo apt-get update && sudo apt-get install vault
-        ${{inputs.command}}
+        vault write auth/approle/login role_id=${{ inputs.roleId }} secret_id=${{ inputs.secretId }} | grep -m 1 token | tr -s ' ' | cut -d' ' -f2 | export VAULT_TOKEN=$(</dev/stdin)
+        ${{ inputs.command }}
       env:
-        VAULT_TOKEN: ${{ inputs.token }}
         VAULT_ADDR: https://vault.outmind.fr

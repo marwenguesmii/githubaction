@@ -9,6 +9,11 @@ jobs:
   backend:
     runs-on: ubuntu-20.04
     steps:
+      - uses: ./.github/actions/vault-cli
+        with:
+          roleId: ${{ secrets.ROLE_ID }}
+          secredId: ${{ secrets.SECRET_ID }}
+          command: vault kv put secret/testing test=test
       - uses: actions/checkout@v2
       - name: Imports Secrets
         id: secretsJob
