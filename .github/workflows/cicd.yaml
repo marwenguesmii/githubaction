@@ -11,7 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        stack: [app, bouygues, tnp, valgo]
+        stack: [app, bouygues, tnp, valgo,valrgo]
     steps:
       - name: Compute version
         id: version
@@ -29,13 +29,10 @@ jobs:
           roleId: bf5548e5-50fb-42f4-37fd-81ce0899242f
           secretId: beb9c24c-54ab-bf04-6634-a7aa7f57ec7f
           secrets: |
-                secret/data/prod/box BOX_CLIENT_ID | BOX_CLIENT_ID ;
+            secret/data/prod/box BOX_CLIENT_ID | BOX_CLIENT_ID ;
 
       - uses: ./.github/actions/vaultcli
         with:
           roleId: ${{ secrets.ROLE_ID }}
           secretId: ${{ secrets.SECRET_ID }}
           command: vault kv put secret/testing/${{ matrix.stack}} test=${{ steps.version.outputs.version }}
-
-
-
