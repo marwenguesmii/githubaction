@@ -24,7 +24,7 @@ jobs:
       - uses: ./.github/actions/vaultcli
         with:
           roleId: ${{ secrets.ROLE_ID }}
-          secredId: ${{ secrets.SECRET_ID }}
+          secretId: ${{ secrets.SECRET_ID }}
           command: vault kv put secret/testing test=test
 
 
