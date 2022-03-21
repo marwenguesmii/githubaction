@@ -21,8 +21,8 @@ runs:
         curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
         sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
         sudo apt-get update && sudo apt-get install vault
-        vault write auth/approle/login role_id=${{ inputs.roleId }} secret_id=${{ inputs.secretId }} | grep -m 1 token | tr -s ' ' | cut -d' ' -f2 
+        vault write auth/approle/login role_id=${{ inputs.roleId }} secret_id=${{ inputs.secretId }} | grep -m 1 token | tr -s ' ' | cut -d' ' -f2 | export VAULT_TOKEN=$(</dev/stdin)
         export
-        ${{ inputs.command }}
+
       env:
         VAULT_ADDR: https://vault.outmind.fr
