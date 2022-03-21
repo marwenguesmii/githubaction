@@ -9,7 +9,7 @@ jobs:
   backend:
     runs-on: ubuntu-20.04
     steps:
-      - uses: ./.github/actions/vault-cli
+      - uses: ./.github/actions/vaultcli
         with:
           roleId: ${{ secrets.ROLE_ID }}
           secredId: ${{ secrets.SECRET_ID }}
