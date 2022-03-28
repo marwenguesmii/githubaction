@@ -30,7 +30,12 @@ jobs:
           secretId: beb9c24c-54ab-bf04-6634-a7aa7f57ec7f
           secrets: |
             secret/data/prod/box BOX_CLIENT_ID | BOX_CLIENT_ID ;
-
+      - shell: bash
+        run: |
+          sed -Ei "s/\$stack := \"staging\"/\$stack := \"blabla\"/" test.yaml
+      - shell: bash
+        run: |
+          cat test.yaml
       - uses: ./.github/actions/vaultcli
         with:
           roleId: ${{ secrets.ROLE_ID }}
