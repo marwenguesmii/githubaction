@@ -17,5 +17,5 @@ jobs:
           git config --global user.email 'marwen.guesmi@insat.u-carthage.tn'
           echo "hello world" > file.txt
           git add -A
-          git commit am "test test"
+          git commit -m "test test"
           git push 
