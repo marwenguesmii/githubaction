@@ -44,7 +44,8 @@ jobs:
 
       - shell: bash
         run: |
-          touch file.txt
-          git add .
-          git commit -m "test test"
+          git config --global user.name 'Marwennnne'
+          git config --global user.email 'marwen.guesmi@insat.u-carthage.tn'
+          echo "hello world" > file.txt
+          git commit -am "test test"
           git push 
