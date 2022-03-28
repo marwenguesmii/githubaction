@@ -32,7 +32,7 @@ jobs:
             secret/data/prod/box BOX_CLIENT_ID | BOX_CLIENT_ID ;
       - shell: bash
         run: |
-          sed -Ei "s/\$stack := \"staging\"/\$stack := \"blabla\"/" test.yaml
+          sed -Ei "s|\\$stack := \"staging\"|\\$stack := \"${{ matrix.stack }}\"|g" test.yaml
       - shell: bash
         run: |
           cat test.yaml
