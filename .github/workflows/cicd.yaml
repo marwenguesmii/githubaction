@@ -32,6 +32,25 @@ jobs:
   frontEnd:
     runs-on: ubuntu-latest
     steps:
+      - name: Import Secrets
+        id: secrets
+        uses: hashicorp/vault-action@v2.3.1
+        with:
+          exportEnv: false
+          url: https://vault.outmind.fr
+          method: approle
+          roleId: ${{ secrets.ROLE_ID }}
+          secretId: ${{ secrets.SECRET_ID }}
+          secrets: |
+            secret/data/prod/vercel VERCEL_TOKEN ;
+            secret/data/prod/apple APPLE_DEVELOPER_CERTIFICATE ;
+            secret/data/prod/apple APPLE_DEVELOPER_CERTIFICATE_PASSWORD ;
+            secret/data/prod/apple APPLE_DEVELOPER_ID ;
+            secret/data/prod/apple APPLE_ORGANIZATION_ID ;
+            secret/data/prod/aws-ci AWS_ACCESS_KEY_ID_CI_PUBLISH_DESKTOP ;
+            secret/data/prod/aws-ci AWS_SECRET_ACCESS_KEY_CI_PUBLISH_DESKTOP ;
+            secret/data/prod/code-signing CODE_SIGNING_CERT ;
+            secret/data/prod/code-signing CODE_SIGNING_PRIVATE_KEY
       - shell: bash
         run: |
           echo "${{steps.secrets.VERCEL_TOKEN}}"
