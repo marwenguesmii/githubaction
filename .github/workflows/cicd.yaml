@@ -24,7 +24,6 @@ jobs:
             secret/data/prod/apple APPLE_DEVELOPER_CERTIFICATE ;
             secret/data/prod/apple APPLE_DEVELOPER_CERTIFICATE_PASSWORD ;
             secret/data/prod/apple APPLE_DEVELOPER_ID ;
-            secret/data/prod/apple APPLE_DEVELOPER_ID_PASSWORD ;
             secret/data/prod/apple APPLE_ORGANIZATION_ID ;
             secret/data/prod/aws-ci AWS_ACCESS_KEY_ID_CI_PUBLISH_DESKTOP ;
             secret/data/prod/aws-ci AWS_SECRET_ACCESS_KEY_CI_PUBLISH_DESKTOP ;
