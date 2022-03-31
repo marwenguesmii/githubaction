@@ -21,7 +21,6 @@ jobs:
           secretId: ${{ secrets.SECRET_ID }}
           secrets: |
             secret/data/prod/vercel VERCEL_TOKEN ;
-            secret/data/bouygues/ssh SSH_PUBLIC_KEY ;
             secret/data/prod/apple APPLE_DEVELOPER_CERTIFICATE ;
             secret/data/prod/apple APPLE_DEVELOPER_CERTIFICATE_PASSWORD ;
             secret/data/prod/apple APPLE_DEVELOPER_ID ;
