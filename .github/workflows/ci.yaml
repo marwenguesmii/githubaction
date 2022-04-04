@@ -1,0 +1,65 @@
+name: Build, test & deploy
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+    tags: [v*]
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: Set to `true` to deploy to K8s
+        required: false
+
+jobs:
+  matrix_prep:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - id: set-matrix
+        run: |
+          if [ "$REF_TYPE" = "tag" ]; then
+            echo "::set-output name=matrix::{\"stack\":[ app, bouygues, tnp, valgo]}"
+          else
+            echo "::set-output name=matrix::{\"stack\": [ staging]}"
+          fi
+        env:
+          REF_TYPE: ${{ github.ref_type }}
+
+  build_ssh:
+    needs: matrix_prep
+    name: Build SSH Image
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{ fromJSON(needs.matrix_prep.outputs.matrix) }}
+    steps:
+      # Get Vault Secrets
+      - name: Import Secrets
+        id: secrets
+        uses: hashicorp/vault-action@v2.3.1
+        with:
+          exportEnv: false
+          url: https://vault.outmind.fr
+          method: approle
+          roleId: ${{ secrets.ROLE_ID }}
+          secretId: ${{ secrets.SECRET_ID }}
+          secrets: |
+            secret/data/${{ matrix.stack }}/ssh SSH_PUBLIC_KEY_RETOOL ;
+            secret/data/${{ matrix.stack }}/ssh SSH_PUBLIC_KEY ;
+            secret/data/${{ matrix.stack }}/postgres POSTGRES_URL
+
+      # Build ghcr.io/outmind-inc/ssh
+      - run: |
+          echo "$STACK"
+        env:
+          STACK: ${{ matrix.stack }}
+  debug:
+    runs-on: ubuntu-latest
+    needs:
+      - build_test
+      - matrix_prep
+    steps:
+      - env:
+          NEEDS: ${{ toJSON(needs) }}
+        run: echo "$NEEDS"
