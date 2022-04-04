@@ -48,6 +48,20 @@ jobs:
             secret/data/${{ matrix.stack }}/ssh SSH_PUBLIC_KEY_RETOOL ;
             secret/data/${{ matrix.stack }}/ssh SSH_PUBLIC_KEY ;
             secret/data/${{ matrix.stack }}/postgres POSTGRES_URL
+      - name: Import Secretssss
+        id: secrets
+        if: ${{ 'bro'=='test' }}
+        uses: hashicorp/vault-action@v2.3.1
+        with:
+          exportEnv: false
+          url: https://vault.outmind.fr
+          method: approle
+          roleId: ${{ secrets.ROLE_ID }}
+          secretId: ${{ secrets.SECRET_ID }}
+          secrets: |
+            secret/data/${{ matrix.stack }}/ssh SSH_PUBLIC_KEY_RETOOL ;
+            secret/data/${{ matrix.stack }}/ssh SSH_PUBLIC_KEY ;
+            secret/data/${{ matrix.stack }}/postgres POSTGRES_URL
 
       # Build ghcr.io/outmind-inc/ssh
       - run: |
