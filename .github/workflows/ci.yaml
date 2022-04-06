@@ -53,7 +53,7 @@ jobs:
       - name: test
         uses: ./.github/actions/test
         with:
-          matrix: ${{ matrix }}
+          matrix: "test"
 
   debug:
     runs-on: ubuntu-latest
