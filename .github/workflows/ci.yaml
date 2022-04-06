@@ -23,7 +23,7 @@ jobs:
         id: test
         uses: ./.github/actions/test
         with:
-          matrix: "marwen"
+          matrix: "marwen ${{ github.ref_type }}"
 
       - shell: bash
         run: |
