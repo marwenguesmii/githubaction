@@ -51,9 +51,16 @@ jobs:
             secret/data/${{ matrix.stack }}/ssh SSH_PUBLIC_KEY ;
             secret/data/${{ matrix.stack }}/postgres POSTGRES_URL
       - name: test
+        id: test
         uses: ./.github/actions/test
         with:
           matrix: "marwen"
+
+      - shell: bash
+        run: |
+          echo "$OUTPUT"
+        env:
+          OUTPUT: ${{ steps.test.outputs.dynamic-values.marwen }}
 
   debug:
     runs-on: ubuntu-latest
