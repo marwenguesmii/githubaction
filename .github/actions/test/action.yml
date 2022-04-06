@@ -6,14 +6,23 @@ inputs:
     description: Vault Command to Execute
     required: true
 
-
+outputs:
+  dynamic-values:
+    description: JSON dictionary of dynamic output values
+    value: ${{ toJson(steps.output_generator.outputs.output_json) }}
 runs:
   using: composite
   steps:
+    - name: Compute Image Outputs
+      id: output_generator
+      shell: bash
+      run: |
+        echo ::set-output name=output_json::"{${{ inputs.matrix }}: {\"value\": ${{ inputs.matrix }} }}"
     - name: Setup Vault Cli
       shell: bash
       run: |
         echo "$TARGET"
-
+        echo "$OUTPUT"
       env:
-        TARGET: ${{ inputs.matrix.target }}
+        TARGET: ${{ inputs.matrix }}
+        OUTPUT: ${{ steps.output_generator.outputs.output_json.marwen }}
