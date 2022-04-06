@@ -5,6 +5,9 @@ inputs:
   matrix:
     description: Vault Command to Execute
     required: true
+  output_url:
+    description: Vault Command to Execute
+    required: true
 
 outputs:
   dynamic-values:
@@ -21,8 +24,6 @@ runs:
     - name: Setup Vault Cli
       shell: bash
       run: |
-        echo "$TARGET"
-        echo "$OUTPUT"
+        echo "$REF"
       env:
-        TARGET: ${{ inputs.matrix }}
-        OUTPUT: ${{ steps.output_generator.outputs.output_json.marwen }}
+        REF: ${{ github.ref_type }}
