@@ -1,0 +1,19 @@
+name: Vault Cli
+description: Install vault cli 
+
+inputs:
+  matrix:
+    description: Vault Command to Execute
+    required: true
+
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Vault Cli
+      shell: bash
+      run: |
+        echo "$TARGET"
+
+      env:
+        TARGET: ${{ inputs.matrix.target }}
