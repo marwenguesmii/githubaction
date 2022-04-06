@@ -55,11 +55,6 @@ jobs:
         with:
           matrix: ${{ matrix }}
 
-      # Build ghcr.io/outmind-inc/ssh
-      - run: |
-          echo "$STACK"
-        env:
-          STACK: ${{ matrix.stack }}
   debug:
     runs-on: ubuntu-latest
     needs:
