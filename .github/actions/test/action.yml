@@ -17,7 +17,7 @@ runs:
       id: output_generator
       shell: bash
       run: |
-        echo ::set-output name=output_json::"{${{ inputs.matrix }}: {\"value\": ${{ inputs.matrix }} }}"
+        echo ::set-output name=output_json::"{ \"${{ inputs.matrix }}\": {\"value\": \"${{ inputs.matrix }}\" }}"
     - name: Setup Vault Cli
       shell: bash
       run: |
