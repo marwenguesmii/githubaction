@@ -16,9 +16,10 @@ outputs:
 runs:
   using: composite
   steps:
+    - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
     - name: touch
       shell: bash
-      run: touch file
+      run: echo "hello" > testingmarwen
     - name: touch
       shell: bash
       run: ls -l

@@ -24,7 +24,9 @@ jobs:
         uses: ./.github/actions/test
         with:
           matrix: "marwen ${{ github.ref_type }}"
-      - run: ls -l
+      - run: |
+          ls -l
+          cat testingmarwen
 
       - shell: bash
         run: |
