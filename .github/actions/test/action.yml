@@ -16,6 +16,12 @@ outputs:
 runs:
   using: composite
   steps:
+    - name: touch
+      shell: bash
+      run: touch file
+    - name: touch
+      shell: bash
+      run: ls -l
     - name: Compute Image Outputs
       id: output_generator
       shell: bash
