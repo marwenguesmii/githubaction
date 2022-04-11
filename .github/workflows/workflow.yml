@@ -1,0 +1,17 @@
+name: my workflow
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set env
+      run: |
+        echo "TEST=TEST" >> $GITHUB_ENV
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: export
+      run: |
+        export
