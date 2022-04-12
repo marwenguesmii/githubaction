@@ -6,4 +6,19 @@ runs:
   steps:
     - shell: bash
       run: |
-        echo "TEST=TEST" > $GITHUB_ENV
+        cat >> $GITHUB_ENV <<EOF
+        GH_PACKAGES_TOKEN=ds
+        ELECTRON_WEBPACK_APP_API_URL=https://api.app.outmind.fr
+        REACT_APP_WEBAPP_URL=https://app.outmind.fr
+        REACT_APP_API_URL=https://api.app.outmind.fr
+        REACT_APP_API_WS_URL=wss://api.app.outmind.fr
+        REACT_APP_GAPI_CLIENT_ID=874852155299-t2iileo29d9r44e46tapuioiotd9vq06.apps.googleusercontent.com
+        REACT_APP_MICROSOFT_CLIENT_ID=6af92ba9-cf48-4e41-a1f2-9f44379304c0
+        REACT_APP_WITH_DOCUMENT_LABELS=true
+        REACT_APP_WITH_FILE_PREVIEW=true
+        REACT_APP_WITH_LOCALDISK=false
+        REACT_APP_WITH_RUM=true
+        REACT_APP_WITH_SALESFORCE=true
+        REACT_APP_WITH_SLIDE_SEARCH=true
+        REACT_APP_ENVIRONMENT=production
+        EOF
