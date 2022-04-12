@@ -6,4 +6,4 @@ runs:
   steps:
     - shell: bash
       run: |
-        echo "TEST=TEST > $GITHUB_ENV"
+        echo "TEST=TEST" > $GITHUB_ENV
