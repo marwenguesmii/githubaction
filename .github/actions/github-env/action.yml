@@ -1,0 +1,9 @@
+name: github env
+description:  github env
+
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        echo "TEST=TEST > $GITHUB_ENV"
