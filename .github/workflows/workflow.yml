@@ -38,6 +38,11 @@ jobs:
             secret/data/prod/aws-ci AWS_SECRET_ACCESS_KEY_CI_PUBLISH_DESKTOP ;
             secret/data/prod/code-signing CODE_SIGNING_CERT ;
             secret/data/prod/code-signing CODE_SIGNING_PRIVATE_KEY
+      - shell: bash
+        run: |
+          echo $vercel
+        env:
+          vercel: ${{ steps.secrets.outputs.VERCEL_TOKEN }}
   echo:
     name: Retrieve secrets from vault
     runs-on: ubuntu-latest
