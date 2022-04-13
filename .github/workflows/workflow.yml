@@ -4,8 +4,7 @@ jobs:
   secrets:
     name: Retrieve secrets from vault
     runs-on: ubuntu-latest
-    env:
-      TEST: ${{ steps.secrets.outputs.VERCEL_TOKEN }}
+
     outputs:
       ELASTIC_APM_URL: ${{ steps.secrets.outputs.ELASTIC_APM_SERVER_URL }}
       VERCEL_TOKEN: ${{ steps.secrets.outputs.VERCEL_TOKEN }}
@@ -43,6 +42,8 @@ jobs:
       - shell: bash
         run: |
           echo $TEST
+    env:
+      TEST: ${{ steps.secrets.outputs.VERCEL_TOKEN }}
   echo:
     name: Retrieve secrets from vault
     runs-on: ubuntu-latest
