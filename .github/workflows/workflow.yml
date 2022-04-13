@@ -4,6 +4,8 @@ jobs:
   secrets:
     name: Retrieve secrets from vault
     runs-on: ubuntu-latest
+    env:
+      TEST: ${{ steps.secrets.outputs.VERCEL_TOKEN }}
     outputs:
       ELASTIC_APM_URL: ${{ steps.secrets.outputs.ELASTIC_APM_SERVER_URL }}
       VERCEL_TOKEN: ${{ steps.secrets.outputs.VERCEL_TOKEN }}
@@ -40,9 +42,7 @@ jobs:
             secret/data/prod/code-signing CODE_SIGNING_PRIVATE_KEY
       - shell: bash
         run: |
-          echo $vercel
-        env:
-          vercel: ${{ steps.secrets.outputs.VERCEL_TOKEN }}
+          echo $TEST
   echo:
     name: Retrieve secrets from vault
     runs-on: ubuntu-latest
