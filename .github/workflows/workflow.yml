@@ -28,7 +28,8 @@ jobs:
           roleId: ${{ secrets.ROLE_ID }}
           secretId: ${{ secrets.SECRET_ID }}
           secrets: |
-            secret/data/prod/elastic-apm ELASTIC_APM_SERVER_URL ;
+            secret/data/prod/elastic-apm ELASTIC_APM_SERVER_URL | TEST ;
+            secret/data/prod/elastic-apm ELASTIC_APM_SERVER_URL | MARWEN ;
             secret/data/prod/vercel VERCEL_TOKEN ;
             secret/data/prod/apple APPLE_DEVELOPER_CERTIFICATE ;
             secret/data/prod/apple APPLE_DEVELOPER_CERTIFICATE_PASSWORD ;
@@ -42,8 +43,7 @@ jobs:
       - shell: bash
         run: |
           echo $TEST
-    env:
-      TEST: ${{ steps.secrets.outputs.VERCEL_TOKEN }}
+          echo $MARWEN
   echo:
     name: Retrieve secrets from vault
     runs-on: ubuntu-latest
