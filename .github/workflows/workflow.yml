@@ -1,29 +1,50 @@
 name: my workflow
 on: push
 jobs:
-  build:
+  secrets:
+    name: Retrieve secrets from vault
     runs-on: ubuntu-latest
+    outputs:
+      ELASTIC_APM_URL: ${{ steps.secrets.outputs.ELASTIC_APM_SERVER_URL }}
+      VERCEL_TOKEN: ${{ steps.secrets.outputs.VERCEL_TOKEN }}
+      APPLE_DEVELOPER_CERTIFICATE: ${{ steps.secrets.outputs.APPLE_DEVELOPER_CERTIFICATE }}
+      APPLE_DEVELOPER_CERTIFICATE_PASSWORD: ${{ steps.secrets.outputs.APPLE_DEVELOPER_CERTIFICATE_PASSWORD }}
+      APPLE_DEVELOPER_ID: ${{ steps.secrets.outputs.APPLE_DEVELOPER_ID }}
+      APPLE_DEVELOPER_ID_PASSWORD: ${{ steps.secrets.outputs.APPLE_DEVELOPER_ID_PASSWORD }}
+      APPLE_ORGANIZATION_ID: ${{ steps.secrets.outputs.APPLE_ORGANIZATION_ID }}
+      AWS_ACCESS_KEY_ID_CI_PUBLISH_DESKTOP: ${{ steps.secrets.outputs.AWS_ACCESS_KEY_ID_CI_PUBLISH_DESKTOP }}
+      AWS_SECRET_ACCESS_KEY_CI_PUBLISH_DESKTOP: ${{ steps.secrets.outputs.AWS_SECRET_ACCESS_KEY_CI_PUBLISH_DESKTOP }}
+      CODE_SIGNING_CERT: ${{ steps.secrets.outputs.CODE_SIGNING_CERT }}
+      CODE_SIGNING_PRIVATE_KEY: ${{ steps.secrets.outputs.CODE_SIGNING_PRIVATE_KEY }}
     steps:
-    - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846 # tag=v3
-    - name: Import Secrets
-      id: secrets
-      uses: hashicorp/vault-action@v2.3.1
-      with:
-        url: https://vault.outmind.fr
-        method: approle
-        roleId: ${{ secrets.ROLE_ID }}
-        secretId: ${{ secrets.SECRET_ID }}
-        secrets: |
-          secret/data/prod/elastic-apm ELASTIC_APM_SERVER_URL ;
-          secret/data/prod/apple APPLE_DEVELOPER_CERTIFICATE ;
-          secret/data/prod/apple APPLE_DEVELOPER_CERTIFICATE_PASSWORD ;
-          secret/data/prod/apple APPLE_DEVELOPER_ID ;
-          secret/data/prod/apple APPLE_DEVELOPER_ID_PASSWORD ;
-          secret/data/prod/apple APPLE_ORGANIZATION_ID ;
-          secret/data/prod/aws-ci AWS_ACCESS_KEY_ID_CI_PUBLISH_DESKTOP | AWS_ACCESS_KEY_ID ;
-          secret/data/prod/aws-ci AWS_SECRET_ACCESS_KEY_CI_PUBLISH_DESKTOP | AWS_SECRET_ACCESS_KEY ;
-          secret/data/prod/code-signing CODE_SIGNING_CERT ;
-          secret/data/prod/code-signing CODE_SIGNING_PRIVATE_KEY
-    - shell: bash
-      run: |
-        env
+      - name: Import Secrets
+        id: secrets
+        uses: hashicorp/vault-action@v2.3.1
+        with:
+          exportEnv: false
+          url: https://vault.outmind.fr
+          method: approle
+          roleId: ${{ secrets.ROLE_ID }}
+          secretId: ${{ secrets.SECRET_ID }}
+          secrets: |
+            secret/data/prod/elastic-apm ELASTIC_APM_SERVER_URL ;
+            secret/data/prod/vercel VERCEL_TOKEN ;
+            secret/data/prod/apple APPLE_DEVELOPER_CERTIFICATE ;
+            secret/data/prod/apple APPLE_DEVELOPER_CERTIFICATE_PASSWORD ;
+            secret/data/prod/apple APPLE_DEVELOPER_ID ;
+            secret/data/prod/apple APPLE_DEVELOPER_ID_PASSWORD ;
+            secret/data/prod/apple APPLE_ORGANIZATION_ID ;
+            secret/data/prod/aws-ci AWS_ACCESS_KEY_ID_CI_PUBLISH_DESKTOP ;
+            secret/data/prod/aws-ci AWS_SECRET_ACCESS_KEY_CI_PUBLISH_DESKTOP ;
+            secret/data/prod/code-signing CODE_SIGNING_CERT ;
+            secret/data/prod/code-signing CODE_SIGNING_PRIVATE_KEY
+  echo:
+    name: Retrieve secrets from vault
+    runs-on: ubuntu-latest
+    needs: secrets
+    steps:
+      - shell: bash
+        run: |
+          echo $vercel
+        env:
+          vercel: ${{ needs.secrets.outputs.VERCEL_TOKEN }}
