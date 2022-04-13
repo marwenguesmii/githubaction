@@ -22,7 +22,6 @@ jobs:
         id: secrets
         uses: hashicorp/vault-action@v2.3.1
         with:
-          exportEnv: false
           url: https://vault.outmind.fr
           method: approle
           roleId: ${{ secrets.ROLE_ID }}
