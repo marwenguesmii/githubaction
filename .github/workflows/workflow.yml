@@ -21,4 +21,4 @@ jobs:
         run: |
           echo $staging
         env:
-          staging: ${{ needs.build_ssh.outputs[${{ matrix.stack }}] }}
+          staging: ${{ needs.build_ssh.outputs['${{ matrix.stack }}'] }}
