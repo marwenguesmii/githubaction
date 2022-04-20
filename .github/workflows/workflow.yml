@@ -19,6 +19,6 @@ jobs:
     steps:
       - shell: bash
         run: |
-          echo $staging
+          echo $env
         env:
-          staging: ${{ needs.build_ssh.outputs['staging'] }}
+          env: ${{ needs.build_ssh.outputs[ matrix.stack ] }}
