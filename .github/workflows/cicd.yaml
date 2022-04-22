@@ -22,8 +22,7 @@ jobs:
           secrets: |
             secret/data/app/ssh SSH_PUBLIC_KEY_RETOOL ;
             secret/data/app/ssh SSH_PUBLIC_KEY ;
-            secret/data/app/postgres POSTGRES_URL ;
-            secret/data/app/github GH_PACKAGES_TOKEN
+
   frontEnd:
     runs-on: ubuntu-latest
     needs: backend
