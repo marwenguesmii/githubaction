@@ -15,6 +15,11 @@ jobs:
   another:
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          curl https://392.api.staging.outmind.fr/indexes/premigrate \
-          --cookie "OUTMIND_JWT_TOKEN=${{secrets.OUTMIND_JWT_TOKEN}}" | jq -r '.indexes | length'
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v14.6
+      - name: List all changed files
+        run: |
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo "$file was changed"
+          done
