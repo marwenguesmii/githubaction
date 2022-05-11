@@ -19,8 +19,9 @@ jobs:
         id: files
         with:
           format: 'space-delimited'
-      - run: |
-          echo ::set-output name=migration::${{contains(steps.files.outputs.modified,'apps/test.js')}}
+      - id: migration
+        run: |
+          echo ::set-output name=value::${{contains(steps.files.outputs.modified,'apps/test.js')}}
       - run: echo $MIGRATION
         env:
-          MIGRATION: ${{steps.files.outputs.migration}}
+          MIGRATION: ${{steps.migration.outputs.migration}}
