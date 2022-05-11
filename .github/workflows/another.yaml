@@ -15,6 +15,8 @@ jobs:
   another:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout to current branch
+        uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
       - id: abc
         run: |
           git diff --name-only HEAD HEAD~1 | grep apps/testing.js
