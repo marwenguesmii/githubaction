@@ -21,6 +21,8 @@ jobs:
       - id: files
         uses: jitterbit/get-changed-files@v1
       - run: |
-          for changed_file in ${{ steps.files.outputs.all }}; do
-            echo "Do something with this ${changed_file}."
-          done
+          for changed_file in ${{ steps.files.outputs.modified }}; do
+          echo ::set-output name=migration::${{contains(steps.files.outputs.modified,'apps/test.js')}}
+      - run: echo $MIGRATION
+        env:
+          MIGRATION: ${{steps.files.outputs.modified}}
