@@ -24,4 +24,4 @@ jobs:
           echo ::set-output name=value::${{contains(steps.files.outputs.modified,'apps/test.js')}}
       - run: echo $MIGRATION
         env:
-          MIGRATION: ${{steps.migration.outputs.migration}}
+          MIGRATION: ${{steps.migration.outputs.value}}
