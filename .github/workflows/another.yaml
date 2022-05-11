@@ -21,7 +21,7 @@ jobs:
           fetch-depth: 2
       - id: abc
         run: |
-          git diff --name-only HEAD HEAD~1 | grep apps/testing.js
+          git diff --name-only HEAD^..HEAD | grep apps/testing.js
           if [ "$?" -eq 0 ]
           then
             echo "::set-output name=migration::${{ github.ref == 'refs/heads/main' }}"
