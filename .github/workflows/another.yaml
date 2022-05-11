@@ -15,12 +15,15 @@ jobs:
   another:
     runs-on: ubuntu-latest
     steps:
-      - uses: jitterbit/get-changed-files@v1
-        id: abc
-        with:
-          format: space-delimited
-          token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Printing
-        if: contains(steps.abc.outputs.modified,'apps/test.js')
+      - id: abc
         run: |
-          echo "${{ steps.abc.outputs.modified }}"
+          git diff --name-only HEAD HEAD~1 | grep apps/testing.js
+          if [ "$?" -eq 0 ]
+          then
+            echo "::set-output name=migration::${{ github.ref == 'refs/heads/main' }}"
+          else
+            echo "::set-output name=migration::false"
+      - run: |
+          echo $migration
+        env:
+          MIGRATION: ${{steps.abc.outputs.migration}}
