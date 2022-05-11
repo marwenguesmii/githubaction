@@ -22,11 +22,6 @@ jobs:
       - id: abc
         run: |
           git diff --name-only HEAD^..HEAD | grep apps/testing.js
-          if [ "$?" -eq 0 ]
-          then
-            echo "::set-output name=migration::${{ github.ref == 'refs/heads/main' }}"
-          else
-            echo "::set-output name=migration::false"
       - run: |
           echo $migration
         env:
