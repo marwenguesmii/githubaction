@@ -15,14 +15,12 @@ jobs:
   another:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout to current branch
-        uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+      - uses: jitterbit/get-changed-files@v1
         with:
-          fetch-depth: 2
-      - id: abc
-        run: |
-          git diff --name-only HEAD^..HEAD | grep apps/testing.js
+          format: 'space-delimited'
+      - id: files
+        uses: jitterbit/get-changed-files@v1
       - run: |
-          echo $migration
-        env:
-          MIGRATION: ${{steps.abc.outputs.migration}}
+          for changed_file in ${{ steps.files.outputs.all }}; do
+            echo "Do something with this ${changed_file}."
+          done
