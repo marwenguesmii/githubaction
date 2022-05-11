@@ -1,0 +1,21 @@
+name: anotther
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+    tags: [v*]
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: Set to `true` to deploy to K8s
+        required: false
+
+jobs:
+  another:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          curl https://392.api.staging.outmind.fr/indexes/premigrate \
+          --cookie 'OUTMIND_JWT_TOKEN=${secrets.OUTMIND_JWT_TOKEN}'
+          
