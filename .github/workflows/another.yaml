@@ -17,5 +17,4 @@ jobs:
     steps:
       - run: |
           curl https://392.api.staging.outmind.fr/indexes/premigrate \
-          --cookie 'OUTMIND_JWT_TOKEN=${secrets.OUTMIND_JWT_TOKEN}'
-          
+          --cookie "OUTMIND_JWT_TOKEN=${secrets.OUTMIND_JWT_TOKEN}"
