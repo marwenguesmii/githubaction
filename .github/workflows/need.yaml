@@ -1,4 +1,4 @@
-name: anotther
+name: need
 
 on:
   pull_request:
@@ -24,6 +24,7 @@ jobs:
 
   two:
     runs-on: ubuntu-latest
+    if: github.ref_type == 'tag'
     steps:
       - run: |
          echo "::set-output name=matrix::{\"stack\":  'one' }"
