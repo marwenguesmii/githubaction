@@ -24,6 +24,7 @@ jobs:
 
   two:
     runs-on: ubuntu-latest
+    needs: one
     if: github.ref_type == 'tag'
     steps:
       - run: |
