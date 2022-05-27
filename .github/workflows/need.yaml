@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: one
     steps:
-      - run: exit(0)
+      - run: echo "test"
 
   three:
     runs-on: ubuntu-latest
