@@ -22,10 +22,8 @@ jobs:
   two:
     runs-on: ubuntu-latest
     needs: one
-    if: github.ref_type == 'tag'
     steps:
-      - run: |
-         echo "::set-output name=matrix::{\"stack\":  'one' }"
+      - run: exit(1)
 
   three:
     runs-on: ubuntu-latest
