@@ -47,7 +47,7 @@ runs:
         ARGS=""
         for NAME in "${arrayName[@]}"
         do
-          ARGS+="$NAME=${{ steps.secrets.outputs[$NAME]}}\n"
+          ARGS+=${{ steps.secrets.outputs["$NAME"] }}
         done
         echo $ARGS
     - shell: bash
