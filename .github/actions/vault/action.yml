@@ -48,6 +48,7 @@ runs:
         for i in "${!arrayName[@]}"; do
           ARGS+="${arrayName[i]}=${{ steps.secrets.outputs[${arrayName[i]}]}}\n"
         done
+        echo $ARGS
     - shell: bash
       run: env
       env:
