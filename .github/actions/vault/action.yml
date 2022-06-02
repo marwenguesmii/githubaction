@@ -18,7 +18,8 @@ inputs:
 runs:
   using: composite
   steps:
-    - shell: bash
+    - id: compute_secrets
+      shell: bash
       run: |
         SECRETS=""
         IFS=':' read -r -a arrayPath <<< "$SECRET_PATH"
@@ -26,7 +27,7 @@ runs:
         for i in "${!arrayPath[@]}"; do
           SECRETS+="secret/data/${arrayPath[i]} ${arrayName[i]};"
         done
-        echo $SECRETS
+        echo ::set-output name=secrets::$SECRETS
       env:
         SECRET_PATH: ${{ inputs.secrets-path }}
         SECRET_NAME: ${{ inputs.secrets-name }}
@@ -39,8 +40,7 @@ runs:
         method: approle
         roleId: ${{ inputs.roleId }}
         secretId: ${{ inputs.secretId }}
-        secrets: |
-          secret/data/prod/box BOX_CLIENT_ID;
+        secrets: ${{ steps.compute_secrets.outputs.secrets }}
     - shell: bash
       run: env
       env:
