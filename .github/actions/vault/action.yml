@@ -25,9 +25,9 @@ runs:
         IFS=':' read -r -a arrayPath <<< "$SECRET_PATH"
         IFS=':' read -r -a arrayName <<< "$SECRET_NAME"
         for i in "${!arrayPath[@]}"; do
-          SECRETS+="secret/data/${arrayPath[i]} ${arrayName[i]};"
+          SECRETS+="secret/data/${arrayPath[i]} ${arrayName[i]} | SECRET_i;"
+          echo ::set-output name=SECRET_NAME_$i::${arrayName[i]}
         done
-        echo ::set-output name=secrets::$SECRETS
       env:
         SECRET_PATH: ${{ inputs.secrets-path }}
         SECRET_NAME: ${{ inputs.secrets-name }}
@@ -44,13 +44,10 @@ runs:
     - id: args
       shell: bash
       run: |
-        ARGS=""
-        for NAME in "${arrayName[@]}"
-        do
-          cat > args.sh <<EOF
-          $NAME=${{ steps.secrets.outputs[$(echo $NAME)] }}
-        done
-        cat args.sh
+        env
+      env:
+        SECRET_NAME: ${{ steps.compute_secrets.outputs.SECRET_NAME_1 }}  
+        SECRET_VALUE: ${{ steps.secrets.outputs.SECRET_1 }}  
     - shell: bash
       run: env
       env:
