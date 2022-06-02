@@ -27,4 +27,4 @@ jobs:
           secretId: ${{ secrets.SECRET_ID }}
           secrets: |
             secret/data/prod/turbo TURBO_TOKEN ;
-          build-args: "${{ steps.secrets.outputs.TURBO_TOKEN }}"
+          build-args: ${{ '${{ steps.secrets.outputs.TURBO_TOKEN }}' }}
