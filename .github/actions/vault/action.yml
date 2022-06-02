@@ -35,7 +35,8 @@ runs:
         method: approle
         roleId: ${{ inputs.roleId }}
         secretId: ${{ inputs.secretId }}
-        secrets: ${{ inputs.secrets }}
+        secrets: |
+          secret/data/prod/box BOX_CLIENT_ID;
     - shell: bash
       run: env
       env:
