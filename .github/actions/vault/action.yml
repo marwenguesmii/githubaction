@@ -25,10 +25,9 @@ runs:
         exportEnv: false
         url: https://vault.outmind.fr
         method: approle
-        roleId: ${{ inputs.secretId }}
-        secretId: ${{ inputs.roleId }}
-        secrets: |
-          secret/data/prod/turbo TURBO_TOKEN ;
+        roleId: ${{ inputs.roleId }}
+        secretId: ${{ inputs.secretId }}
+        secrets: ${{ inputs.secrets }}
     - shell: bash
       run: env
       env:
