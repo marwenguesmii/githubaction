@@ -48,7 +48,7 @@ runs:
         for NAME in "${arrayName[@]}"
         do
           cat > args.sh <<EOF
-          $NAME='${{ ${{ steps.secrets.outputs[] }} }}'
+          $NAME=${{ steps.secrets.outputs[$(echo $NAME)] }}
         done
         cat args.sh
     - shell: bash
