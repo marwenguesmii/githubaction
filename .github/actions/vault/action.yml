@@ -28,7 +28,7 @@ runs:
         roleId: ${{ inputs.secretId }}
         secretId: ${{ inputs.roleId }}
         secrets: |
-          ${{ inputs.secrets }}
+          secret/data/prod/turbo TURBO_TOKEN ;
     - shell: bash
       run: env
       env:
