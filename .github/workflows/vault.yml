@@ -14,7 +14,7 @@ on:
 jobs:
 
   build_ssh:
-    name: Build SSH Image
+    name: vault
     runs-on: ubuntu-latest
     steps:
         # Checkout current branch
@@ -26,5 +26,5 @@ jobs:
           roleId: ${{ secrets.ROLE_ID }}
           secretId: ${{ secrets.SECRET_ID }}
           secrets: |
-            secret/data/prod/kubernetes KUBECONFIG ;
-          build-args: '${{ steps.secrets.outputs.KUBECONFIG }}'
+            secret/data/prod/box BOX_CLIENT_ID ;
+          build-args: '${{ steps.secrets.outputs.BOX_CLIENT_ID }}'
