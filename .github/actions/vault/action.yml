@@ -51,11 +51,13 @@ runs:
           ARGS=${{ steps.secrets.outputs[ steps.args.outputs.name ] }}
         done
         echo $ARGS
+        echo ::set-output args=args::$ARGS
     - shell: bash
       run: env
       env:
         NODE_ENV: ${{ steps.secrets.outputs.NODE_ENV }}
         CLUSTERING_URL: ${{ steps.secrets.outputs.CLUSTERING_URL }}
+        ARGS: ${{ steps.args.outputs.args }}
     - shell: bash
       run: env
       env:
