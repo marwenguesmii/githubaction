@@ -25,7 +25,7 @@ runs:
         IFS=':' read -r -a arrayPath <<< "$SECRET_PATH"
         IFS=':' read -r -a arrayName <<< "$SECRET_NAME"
         for i in "${!arrayPath[@]}"; do
-          SECRETS+="secret/data/${arrayPath[i]} ${arrayName[i]} | SECRET_i;"
+          SECRETS+="secret/data/${arrayPath[i]} ${arrayName[i]} | SECRET_$i;"
           echo ::set-output name=SECRET_NAME_$i::${arrayName[i]}
         done
         echo ::set-output name=secrets::$SECRETS
