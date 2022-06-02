@@ -2,7 +2,7 @@ name: Vault
 description: vault
 
 inputs:
-  secrets:
+  secrets-name:
     description: Vault Command to Execute
     required: true
   roleId:
@@ -11,13 +11,21 @@ inputs:
   secretId:
     description: Vault secretId
     required: true
-  build-args:
+  secrets-path:
     description: build-args
     required: true
 
 runs:
   using: composite
   steps:
+    - shell: bash
+      run: |
+        IFS=':' read -r -a arrayPath <<< "$SECRET_PATH"
+        IFS=':' read -r -a arrayName <<< "$SECRET_PATH"
+        echo $arrayPath
+      env:
+        SECRET_PATH: ${{ inputs.secrets-path }}
+        SECRET_NAME: ${{ inputs.secrets-name }}
     - name: Import Secrets
       id: secrets
       uses: hashicorp/vault-action@v2.3.1

@@ -25,6 +25,5 @@ jobs:
         with:
           roleId: ${{ secrets.ROLE_ID }}
           secretId: ${{ secrets.SECRET_ID }}
-          secrets: |
-            secret/data/prod/turbo TURBO_TOKEN ;
-          build-args: ${{ '${{ steps.secrets.outputs.TURBO_TOKEN }}' }}
+          secrets-path: 'prod/turbo:prod/box'
+          secrets-name: 'TURBO_TOKEN:BOX_CLIENT_ID'
