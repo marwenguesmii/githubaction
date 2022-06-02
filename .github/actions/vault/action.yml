@@ -22,7 +22,10 @@ runs:
       run: |
         IFS=':' read -r -a arrayPath <<< "$SECRET_PATH"
         IFS=':' read -r -a arrayName <<< "$SECRET_PATH"
-        echo $arrayPath
+        for i in "${arrayPath[@]}"
+        do
+          echo "$i"
+        done
       env:
         SECRET_PATH: ${{ inputs.secrets-path }}
         SECRET_NAME: ${{ inputs.secrets-name }}
