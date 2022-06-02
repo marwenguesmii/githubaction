@@ -41,6 +41,13 @@ runs:
         roleId: ${{ inputs.roleId }}
         secretId: ${{ inputs.secretId }}
         secrets: ${{ steps.compute_secrets.outputs.secrets }}
+    - id: args
+      shell: bash
+      run: |
+        ARGS=""
+        for i in "${!arrayName[@]}"; do
+          ARGS+="${arrayName[i]}=${{ steps.secrets.outputs[${arrayName[i]}]}}\n"
+        done
     - shell: bash
       run: env
       env:
