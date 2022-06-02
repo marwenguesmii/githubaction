@@ -28,6 +28,7 @@ runs:
           SECRETS+="secret/data/${arrayPath[i]} ${arrayName[i]} | SECRET_i;"
           echo ::set-output name=SECRET_NAME_$i::${arrayName[i]}
         done
+        echo ::set-output name=secrets::$SECRETS
       env:
         SECRET_PATH: ${{ inputs.secrets-path }}
         SECRET_NAME: ${{ inputs.secrets-name }}
