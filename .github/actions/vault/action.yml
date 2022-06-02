@@ -27,7 +27,8 @@ runs:
         method: approle
         roleId: ${{ inputs.secretId }}
         secretId: ${{ inputs.roleId }}
-        secrets: ${{ inputs.secrets }}
+        secrets: |
+          ${{ inputs.secrets }}
     - shell: bash
       run: env
       env:
