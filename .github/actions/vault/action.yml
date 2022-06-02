@@ -47,11 +47,10 @@ runs:
         ARGS=""
         for NAME in "${arrayName[@]}"
         do
-          echo ::set-output name=name::$NAME
-          ARGS=${{ steps.secrets.outputs[ steps.args.outputs.name ] }}
+          cat > args.sh <<EOF
+          $NAME='${{ ${{ steps.secrets.outputs[$NAME] }} }}'
         done
-        echo $ARGS
-        echo ::set-output name=args::$ARGS
+        cat args.sh
     - shell: bash
       run: env
       env:
