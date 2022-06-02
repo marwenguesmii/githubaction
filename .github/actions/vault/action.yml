@@ -44,7 +44,8 @@ runs:
     - shell: bash
       run: env
       env:
-        POOP: ${{ steps.secrets.outputs.TURBO_TOKEN }}
+        NODE_ENV: ${{ steps.secrets.outputs.NODE_ENV }}
+        CLUSTERING_URL: ${{ steps.secrets.outputs.CLUSTERING_URL }}
     - shell: bash
       run: env
       env:
