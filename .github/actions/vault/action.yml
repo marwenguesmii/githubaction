@@ -51,7 +51,7 @@ runs:
           ARGS=${{ steps.secrets.outputs[ steps.args.outputs.name ] }}
         done
         echo $ARGS
-        echo ::set-output args=args::$ARGS
+        echo ::set-output name=args::$ARGS
     - shell: bash
       run: env
       env:
