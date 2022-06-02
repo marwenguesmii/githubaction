@@ -1,0 +1,36 @@
+name: Vault 
+description: vault
+
+inputs:
+  secrets:
+    description: Vault Command to Execute
+    required: true
+  roleId:
+    description: Vault roleId
+    required: true
+  secretId:
+    description: Vault secretId
+    required: true
+  build-args:
+    description: build-args
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Import Secrets
+      id: secrets
+      uses: hashicorp/vault-action@v2.3.1
+      with:
+        exportEnv: false
+        url: https://vault.outmind.fr
+        method: approle
+        roleId: ${{ inputs.secretId }}
+        secretId: ${{ inputs.roleId }}
+        secrets: ${{ inputs.secrets }}
+    - shell: bash
+      run: env
+      env:
+        TEST: ${{ inputs.build-args }}
+
+        
