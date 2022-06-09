@@ -47,8 +47,8 @@ runs:
         IFS=':' read -r -a names <<< "$SECRET_NAME"
         for i in "${!names[@]}"; do
           varname=secret_value_$i
-          echo ${!varname}  
-          printf "%s=%s\n" ${names[i]} $( echo ${!varname} | tr '\n' ' ') >> args
+          printf "%s=%s\n" ${names[i]} $( echo ${!varname} | tr '\n' '') >> args
+          cat args
         done
       env:
         SECRET_NAME: ${{ inputs.secrets-name }}
