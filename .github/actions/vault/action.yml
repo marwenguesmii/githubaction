@@ -25,8 +25,7 @@ runs:
         IFS=':' read -r -a arrayPath <<< "$SECRET_PATH"
         IFS=':' read -r -a arrayName <<< "$SECRET_NAME"
         for i in "${!arrayPath[@]}"; do
-          SECRETS+="secret/data/${arrayPath[i]} ${arrayName[i]} | SECRET_$i;"
-          echo ::set-output name=SECRET_NAME_$i::${arrayName[i]}
+          SECRETS+="secret/data/${arrayPath[i]} ${arrayName[i]} | secret_value_$i;"
         done
         echo ::set-output name=secrets::$SECRETS
       env:
@@ -42,22 +41,23 @@ runs:
         roleId: ${{ inputs.roleId }}
         secretId: ${{ inputs.secretId }}
         secrets: ${{ steps.compute_secrets.outputs.secrets }}
+    - name: Compute build-args
+      id: build-args
+      shell: bash
+      run: |
+        IFS=':' read -r -a names <<< "$SECRET_NAME"
+        for i in "${!names[@]}"; do
+          varname=secret_value_$i
+          printf "%s=%s\n" ${names[i]} ${!varname} >> args
+        done
+        echo ::set-output name=build-args::$(cat args)
+      env:
+        SECRET_NAME: ${{ inputs.secrets-name }}
     - id: args
       shell: bash
       run: |
         env
       env:
-        SECRET_NAME: ${{ steps.compute_secrets.outputs.SECRET_NAME_1 }}  
-        SECRET_VALUE: ${{ steps.secrets.outputs.SECRET_1 }}  
-    - shell: bash
-      run: env
-      env:
-        NODE_ENV: ${{ steps.secrets.outputs.NODE_ENV }}
-        CLUSTERING_URL: ${{ steps.secrets.outputs.CLUSTERING_URL }}
-        ARGS: ${{ steps.args.outputs.args }}
-    - shell: bash
-      run: env
-      env:
-        TEST: ${{ inputs.build-args }}
+        args: ${{ steps.build-args.outputs.build-args }}
 
         
