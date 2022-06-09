@@ -47,14 +47,17 @@ runs:
         IFS=':' read -r -a names <<< "$SECRET_NAME"
         for i in "${!names[@]}"; do
           varname=secret_value_$i
-          printf "%s=%s\n" ${names[i]} ${!varname} >> args
-          cat args
+          printf "\"%s=%s\"\n" ${names[i]} ${!varname} >> args
         done
+        cat args
+        echo "BUILD_ARGS<<EOF" >> $GITHUB_ENV
+        cat args >> $GITHUB_ENV
+        echo "EOF" >> $GITHUB_ENV
       env:
         SECRET_NAME: ${{ inputs.secrets-name }}
     - id: args
       shell: bash
       run: |
-        echo "The string is: ${{ env.BUILD_ARGS }}"
+        echo "${{ env.BUILD_ARGS }}"
 
         
