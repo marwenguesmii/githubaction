@@ -25,7 +25,7 @@ runs:
         IFS=':' read -r -a arrayPath <<< "$SECRET_PATH"
         IFS=':' read -r -a arrayName <<< "$SECRET_NAME"
         for i in "${!arrayPath[@]}"; do
-          SECRETS+="secret/data/${arrayPath[i]} ${arrayName[i]} | secret_value_$i;"
+          SECRETS+="secret/data/${arrayPath[i]} ${arrayName[i]} | secret_value_$i; "
         done
         echo ::set-output name=secrets::$SECRETS
       env:
@@ -50,6 +50,7 @@ runs:
           varname=secret_value_$i
           printf "%s=%s\n" ${names[i]} ${!varname} >> args
         done
+        cat args
         echo "BUILD_ARGS<<EOF" >> $GITHUB_ENV
         cat args >> $GITHUB_ENV
         echo "EOF" >> $GITHUB_ENV
