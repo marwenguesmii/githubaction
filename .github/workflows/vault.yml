@@ -25,5 +25,5 @@ jobs:
         with:
           roleId: ${{ secrets.ROLE_ID }}
           secretId: ${{ secrets.SECRET_ID }}
-          secrets-path: 'prod/clustering:prod/node'
-          secrets-name: 'CLUSTERING_URL:NODE_ENV'
+          secrets-path: 'staging/ssh:staging/ssh'
+          secrets-name: 'SSH_PUBLIC_KEY:SSH_PUBLIC_KEY_RETOOL'

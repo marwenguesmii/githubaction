@@ -35,7 +35,6 @@ runs:
       id: secrets
       uses: hashicorp/vault-action@v2.3.1
       with:
-        exportEnv: false
         url: https://vault.outmind.fr
         method: approle
         roleId: ${{ inputs.roleId }}
