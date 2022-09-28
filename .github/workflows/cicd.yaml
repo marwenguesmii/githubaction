@@ -1,9 +1,15 @@
 name: testing pipeline
 
 on:
+  pull_request:
   push:
-    branches:
-      - "main"
+    branches: [main]
+    tags: [v*]
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: Set to `true` to deploy to K8s
+        required: false
 
 jobs:
   backend:
