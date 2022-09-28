@@ -49,7 +49,6 @@ runs:
           varname=secret_value_$i
           echo \"${names[i]}=${!varname}\" >> args
         done
-        cat args
         echo "BUILD_ARGS<<EOF" >> $GITHUB_ENV
         cat args >> $GITHUB_ENV
         echo "EOF" >> $GITHUB_ENV
