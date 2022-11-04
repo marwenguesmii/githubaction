@@ -18,14 +18,12 @@ jobs:
     steps:
       - id: needs
         run: echo "::set-output name=cluster-name::hello-$(date +'%Y%m%d')"
-         
-  two:
-    runs-on: ubuntu-latest
-    needs: one
-    env:
-      test: ${{ steps.needs.outputs.cluster-name}}
-    steps:
-      - run: echo $test
+      - shell: bash
+        env:
+          test: ${{ steps.needs.outputs.cluster-name}}
+        run: echo $test
+
+        
 
   three:
     runs-on: ubuntu-latest
