@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: needs
-        run: echo "hello"
+        run: echo "::set-output name=cluster-name::hello-$(date +'%Y%m%d')"
          
   two:
     runs-on: ubuntu-latest
