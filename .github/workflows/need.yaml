@@ -22,9 +22,10 @@ jobs:
   two:
     runs-on: ubuntu-latest
     needs: one
-    if: github.ref_type == 'tag'
+    env:
+      test: ${{ steps.needs.outputs.cluster-name}}
     steps:
-      - run: echo "test"
+      - run: echo $test
 
   three:
     runs-on: ubuntu-latest
