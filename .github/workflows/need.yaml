@@ -27,7 +27,6 @@ jobs:
 
   three:
     runs-on: ubuntu-latest
-    needs: two
     if:  always() && !failure()
     steps:
       - run: |
