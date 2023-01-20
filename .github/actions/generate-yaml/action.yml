@@ -23,8 +23,8 @@ runs:
   steps:
     - shell: bash
       run: |
-        IFS='$' read -r -a attribut_names <<< "${{ inputs.global-attribut-names }}"
-        IFS='$' read -r -a attribut_values <<< "${{ inputs.global-attribut-values }}"
+        IFS='#' read -r -a attribut_names <<< "${{ inputs.global-attribut-names }}"
+        IFS='#' read -r -a attribut_values <<< "${{ inputs.global-attribut-values }}"
         for i in "${attribut_names[@]}"
         do
         cat <<EOF >>${{ inputs.filename }}
