@@ -25,7 +25,7 @@ runs:
       run: |
         IFS='$' read -r -a attribut_names <<< "${{ inputs.global-attribut-names }}"
         IFS='$' read -r -a attribut_values <<< "${{ inputs.global-attribut-values }}"
-        for i in "${urls[@]}"
+        for i in "${attribut_names[@]}"
         do
         cat <<EOF >>${{ inputs.filename }}
         ${attribut_names[i]}: ${attribut_values[i]}
