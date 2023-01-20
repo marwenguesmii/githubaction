@@ -38,8 +38,15 @@ runs:
         IFS='# ' read -r -a one_file_attr_values <<< "${files_attribut_values[i]}"
         for i in "${!one_file_attr_names[@]}"
         do
+        if [ "$i" -eq "0" ]; then
         cat <<EOF >>${{ inputs.filename }}
-        ${one_file_attr_names[i]}: ${one_file_attr_values[i]}
+        files:
+          - ${one_file_attr_names[i]}: ${one_file_attr_values[i]}
+        EOF
+        fi
+        else
+        cat <<EOF >>${{ inputs.filename }}
+            ${one_file_attr_names[i]}: ${one_file_attr_values[i]}
         EOF
         done
         done

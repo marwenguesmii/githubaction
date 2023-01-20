@@ -1,50 +1,31 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: web-deployment
-  labels:
-    app: web
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: web
-  template:
-    metadata:
-      labels:
-        app: web
-      annotations:
-        vault.hashicorp.com/agent-inject: "true"
-        vault.hashicorp.com/role: "role-staging"
-        vault.hashicorp.com/agent-inject-secret-.env: "secret"
-        vault.hashicorp.com/secret-volume-path-.env: "/tmp"
-        vault.hashicorp.com/agent-inject-template-.env: |
-          {{- $stack := "staging" }}
-          {{- with secrets (printf "secret/%s" $stack) }}
-          {{- range $secret := . }}
-          {{- if not (eq $secret  "event/") }}
-          {{ with secret (printf "secret/%s/%s" $stack $secret) }}
-          {{ (printf "# %s Environment Variables" $secret) -}}
-          {{ range $k, $v := .Data.data }}
-          {{$k}}={{$v -}}
-          {{ end }}{{ end }}{{ end }}{{ end }}{{ end }}
-          {{ if eq $stack "staging" }}
-          {{ with secret "secret/staging/event/default" }}
-          {{ "# Staging Environment Variables" -}}
-          {{ range $k, $v := .Data.data }}
-          {{$k}}={{$v -}}
-          {{ end }}{{ end }}
-          {{ else }}
-          {{ with secrets "secret/prod" }}
-          {{ range $secret := . }}
-          {{ with secret (printf "secret/prod/%s"  $secret) }}
-          {{ (printf "# %s Environment Variables" $secret) -}}
-          {{ range $k, $v := .Data.data }}
-          {{$k}}={{$v -}}
-          {{ end }}{{ end }}{{ end }}{{ end }}{{ end }}
-    spec:
-      serviceAccountName: internal-app
-      containers:
-        - name: web
-          image: alpine:latest
-          args: ["sh", "-c", "cat /tmp/.env && sleep inf"]
+version: 0.0.1
+files:
+  - url: https://app-desktop-releases.s3.eu-west-3.amazonaws.com/Windows+Service+0.0.1-beta+Bundler+Configuration.xml
+    type: configuration
+    size: 682
+    sha512: cf822726ea5ab6881f7c764dd830e12a09df708f41c22b3379cd9c5b0e0a9d08d36012e297642f5903c5b5bef941e37e99a494fc2dd056e280d58ad7b1fdbffb
+  - url: https://app-desktop-releases.s3.eu-west-3.amazonaws.com/Windows+Service+0.0.1-beta+Win32.exe
+    type: executable
+    target: x64
+    platform: win32
+    size: 40819527
+    sha512: 1e88ec5f405e91ba2bbc582b827156fc842c3226fe8d3ac4181e60c56b3cb78647ed878bd569ae3142592c0e2de8adb7330c63c2964262c5fad05cc9d440d686
+  - url: https://app-desktop-releases.s3.eu-west-3.amazonaws.com/Windows+Service+Bundler+Win32+arm64.exe
+    type: bundler
+    target: arm64
+    platform: win32
+    size: 18340443
+    sha512: ac98ff9c5aa69d9c24697b847f2bccce0728a412ea5efb519d77535738fbac4bd620062f3df56a1afde03f797e81506dcadeacee5c5a22568fe650aca3091024
+  - url: https://app-desktop-releases.s3.eu-west-3.amazonaws.com/Windows+Service+Bundler+Win32+x64.exe
+    type: bundler
+    target: x64
+    platform: win32
+    size: 18340443
+    sha512: ac98ff9c5aa69d9c24697b847f2bccce0728a412ea5efb519d77535738fbac4bd620062f3df56a1afde03f797e81506dcadeacee5c5a22568fe650aca3091024
+  - url: https://app-desktop-releases.s3.eu-west-3.amazonaws.com/Windows+Service+Bundler+Win32+x86.exe
+    type: bundler
+    target: x86
+    platform: win32
+    size: 18340443
+    sha512: d0acf7c9433cae2f168937e77bb8ec0a1c4401543067c4b34b491e7e0dfb2fa7f1cc3734004cf05d3c892c28f283829d4d0762e635397d2486e4daaab24ce8f7
+releaseDate: "2023-01-06T00:00:00.000Z"

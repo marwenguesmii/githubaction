@@ -24,6 +24,6 @@ jobs:
           filename: testvs.yaml
           global-attribut-names: version, releaseDate
           global-attribut-values: 0.0.1, 2023-01-06T00:00:00.000Z
-          files-attribut-names: url# type# size# sha512
-          files-attribut-values: https://app-desktop-releases.s3.eu-west-3.amazonaws.com/Windows+Service+0.0.1-beta+Bundler+Configuration.xml# configuration# 682# cf822726ea5ab6881f7c764dd830e12a09df708f41c22b3379cd9c5b0e0a9d08d36012e297642f5903c5b5bef941e37e99a494fc2dd056e280d58ad7b1fdbffb
+          files-attribut-names: url# type# size# sha512, a
+          files-attribut-values: https://app-desktop-releases.s3.eu-west-3.amazonaws.com/Windows+Service+0.0.1-beta+Bundler+Configuration.xml# configuration# 682# cf822726ea5ab6881f7c764dd830e12a09df708f41c22b3379cd9c5b0e0a9d08d36012e297642f5903c5b5bef941e37e99a494fc2dd056e280d58ad7b1fdbffb, b
 
