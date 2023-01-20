@@ -31,20 +31,5 @@ runs:
         ${attribut_names[i]}: ${attribut_values[i]}
         EOF
         done
-        IFS='#' read -r -a files_attribut_names <<< "${{ inputs.files-attribut-names }}"
-        IFS='#' read -r -a files_attribut_values <<< "${{ inputs.files-attribut-values }}"
-        cat <<EOF >>${{ inputs.filename }}
-        files:
-        EOF
-        for i in "${files_attribut_names[@]}"
-        do
-        IFS='$' read -r -a one_file_attr_names <<< "$files_attribut_names[i]"
-        IFS='$' read -r -a one_file_attr_values <<< "$files_attribut_values[i]"
-        for i in "${one_file_attr_names[@]}"
-        do
-        cat <<EOF >>${{ inputs.filename }}
-        ${one_file_attr_names[i]}: ${one_file_attr_values[i]}
-        EOF
-        done
-        done
+
         cat ${{ inputs.filename }}
