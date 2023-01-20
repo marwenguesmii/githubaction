@@ -1,0 +1,47 @@
+name: Generate winservice YAML
+description: Generate winservice YAML
+
+inputs:
+  global-attribut-names:
+    description: release date
+    required: true
+  global-attribut-values:
+    description: release date
+    required: true
+  files-attribut-names:
+    description: release date
+    required: true
+  files-attribut-values:
+    description: release date
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        IFS='$' read -r -a attribut-names <<< "${{ inputs.global-attribut-names }}"
+        IFS='$' read -r -a attribut-values <<< "${{ inputs.global-attribut-values }}"
+        for i in "${urls[@]}"
+        do
+          cat <<EOF >>${{ inputs.filename }}
+          ${attribut-names[i]}: ${attribut-values[i]}
+          EOF
+        done
+        IFS='#' read -r -a files-attribut-names <<< "${{ inputs.files-attribut-names }}"
+        IFS='#' read -r -a files-attribut-values <<< "${{ inputs.files-attribut-values }}"
+        cat <<EOF >>${{ inputs.filename }}
+        files:
+        EOF
+        for i in "${files-attribut-names[@]}"
+        do
+          IFS='$' read -r -a one-file-attr-names <<< "$files-attribut-names[i]"
+          IFS='$' read -r -a one-file-attr-values <<< "$files-attribut-values[i]"
+          for i in "${one-file-attr-names[@]}"
+          do
+            cat <<EOF >>${{ inputs.filename }}
+                ${one-file-attr-names[i]}: ${one-file-attr-values[i]}
+            EOF
+          done
+        done
+        cat ${{ inputs.filename }}
