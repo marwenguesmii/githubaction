@@ -43,11 +43,11 @@ runs:
         files:
           - ${one_file_attr_names[i]}: ${one_file_attr_values[i]}
         EOF
-        fi
         else
         cat <<EOF >>${{ inputs.filename }}
             ${one_file_attr_names[i]}: ${one_file_attr_values[i]}
         EOF
+        fi
         done
         done
         cat ${{ inputs.filename }}
