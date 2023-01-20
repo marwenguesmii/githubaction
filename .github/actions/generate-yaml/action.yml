@@ -2,6 +2,9 @@ name: Generate winservice YAML
 description: Generate winservice YAML
 
 inputs:
+  filename:
+    description: release date
+    required: true
   global-attribut-names:
     description: release date
     required: true
