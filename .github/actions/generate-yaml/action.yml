@@ -33,7 +33,7 @@ runs:
         cat <<EOF >>${{ inputs.filename }}
         files:
         EOF
-        for k in "${!files_attribut_names[@]}"; do
+        for i in "${!files_attribut_names[@]}"; do
         IFS='#' read -r -a one_file_attr_names <<< "${files_attribut_names[k]}"
         IFS='#' read -r -a one_file_attr_values <<< "${files_attribut_values[k]}"
         cat <<EOF >>${{ inputs.filename }}
