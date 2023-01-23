@@ -37,7 +37,7 @@ runs:
         IFS='# ' read -r -a one_file_attr_names <<< "${files_attribut_names[k]}"
         IFS='# ' read -r -a one_file_attr_values <<< "${files_attribut_values[k]}"
         echo "$one_file_attr_names"
-        echo "$one_file_attr_values"
+
         for j in "${!one_file_attr_names[@]}"; do
         if [ "$j" -eq "0" ]; then
         cat <<EOF >>${{ inputs.filename }}
