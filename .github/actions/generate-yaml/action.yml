@@ -3,19 +3,19 @@ description: Generate winservice YAML
 
 inputs:
   filename:
-    description: release date
+    description: File name
     required: true
   global-attribut-names:
-    description: release date
+    description: Global attribut names separated by comma
     required: true
   global-attribut-values:
-    description: release date
+    description: Global attribut values separated by comma
     required: true
   files-attribut-names:
-    description: release date
+    description: Files attribut names ( files separated by comma and attribut of the same file separated by Hashtag )
     required: true
   files-attribut-values:
-    description: release date
+    description: Files attribut values ( files separated by comma and attribut of the same file separated by Hashtag )
     required: true
 
 runs:
@@ -39,11 +39,9 @@ runs:
         cat <<EOF >>${{ inputs.filename }}
           - ${one_file_attr_names[0]}: ${one_file_attr_values[0]}
         EOF
-        echo "$one_file_attr_names"
         one_file_attr_names=("${one_file_attr_names[@]:1}")
         one_file_attr_values=("${one_file_attr_values[@]:1}")
         for j in "${!one_file_attr_names[@]}"; do
-        echo "hello"
         cat <<EOF >>${{ inputs.filename }}
             ${one_file_attr_names[j]}: ${one_file_attr_values[j]}
         EOF
