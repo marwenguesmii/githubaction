@@ -1,6 +1,7 @@
 #!/bin/bash
-one_file_attr_names=(url# type# size# sha512, a)
-
+input='url# type# size# sha512,a'
+IFS=',' read -r -a files_attribut_names <<< "$input"
+echo "${files_attribut_names[0]}"
 echo "$one_file_attr_names"
 one_file_attr_values=(ba mar barcha)
 for j in "${!one_file_attr_names[@]}"; do

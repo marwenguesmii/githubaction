@@ -23,22 +23,23 @@ runs:
   steps:
     - shell: bash
       run: |
-        IFS=', ' read -r -a attribut_names <<< "${{ inputs.global-attribut-names }}"
-        IFS=', ' read -r -a attribut_values <<< "${{ inputs.global-attribut-values }}"
+        IFS=',' read -r -a attribut_names <<< "${{ inputs.global-attribut-names }}"
+        IFS=',' read -r -a attribut_values <<< "${{ inputs.global-attribut-values }}"
         for i in "${!attribut_names[@]}"; do
         echo "${attribut_names[i]}: ${attribut_values[i]}" >> ${{ inputs.filename }}
         done
-        IFS=', ' read -r -a files_attribut_names <<< "${{ inputs.files-attribut-names }}"
-        IFS=', ' read -r -a files_attribut_values <<< "${{ inputs.files-attribut-values }}"
+        IFS=',' read -r -a files_attribut_names <<< "${{ inputs.files-attribut-names }}"
+        IFS=',' read -r -a files_attribut_values <<< "${{ inputs.files-attribut-values }}"
         cat <<EOF >>${{ inputs.filename }}
         files:
         EOF
         for k in "${!files_attribut_names[@]}"; do
-        IFS='# ' read -r -a one_file_attr_names <<< "${files_attribut_names[k]}"
-        IFS='# ' read -r -a one_file_attr_values <<< "${files_attribut_values[k]}"
+        IFS='#' read -r -a one_file_attr_names <<< "${files_attribut_names[k]}"
+        IFS='#' read -r -a one_file_attr_values <<< "${files_attribut_values[k]}"
         cat <<EOF >>${{ inputs.filename }}
           - ${one_file_attr_names[0]}: ${one_file_attr_values[0]}
         EOF
+        echo "$one_file_attr_names"
         one_file_attr_names=("${one_file_attr_names[@]:1}")
         one_file_attr_values=("${one_file_attr_values[@]:1}")
         for j in "${!one_file_attr_names[@]}"; do
