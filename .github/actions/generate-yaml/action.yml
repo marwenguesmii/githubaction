@@ -42,6 +42,7 @@ runs:
         one_file_attr_names=("${one_file_attr_names[@]:1}")
         one_file_attr_values=("${one_file_attr_values[@]:1}")
         for j in "${!one_file_attr_names[@]}"; do
+        echo "hello"
         cat <<EOF >>${{ inputs.filename }}
             ${one_file_attr_names[j]}: ${one_file_attr_values[j]}
         EOF
