@@ -36,11 +36,11 @@ runs:
         for i in "${!files_attribut_names[@]}"; do
         IFS='# ' read -r -a one_file_attr_names <<< "${files_attribut_names[i]}"
         IFS='# ' read -r -a one_file_attr_values <<< "${files_attribut_values[i]}"
+        echo "$one_file_attr_values"
         for i in "${!one_file_attr_names[@]}"
         do
         if [ "$i" -eq "0" ]; then
         cat <<EOF >>${{ inputs.filename }}
-        files:
           - ${one_file_attr_names[i]}: ${one_file_attr_values[i]}
         EOF
         else
