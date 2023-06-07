@@ -1,0 +1,34 @@
+name: need
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+    tags: [v*]
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: Set to `true` to deploy to K8s
+        required: false
+
+
+jobs:
+  one:
+    runs-on: ubuntu-latest
+    steps:
+      - id: needs
+        run: echo "::set-output name=cluster-name::hello-$(date +'%Y%m%d')"
+      - shell: bash
+        env:
+          test: ${{ steps.needs.outputs.cluster-name}}
+        run: echo $test
+
+        
+
+  three:
+    runs-on: ubuntu-latest
+    if:  always() && !failure()
+    steps:
+      - run: |
+         echo "::set-output name=matrix::{\"stack\":  'one' }"
+

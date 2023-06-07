@@ -11,6 +11,7 @@ on:
         description: Set to `true` to deploy to K8s
         required: false
 
+
 jobs:
   another:
     runs-on: ubuntu-latest
@@ -30,5 +31,6 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
+              color: '0D0075'
               labels: ['new submission']
             });

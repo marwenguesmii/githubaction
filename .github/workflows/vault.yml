@@ -1,0 +1,29 @@
+name: Vault
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+    tags: [v*]
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: Set to `true` to deploy to K8s
+        required: false
+
+jobs:
+
+  build_ssh:
+    name: vault
+    runs-on: ubuntu-latest
+    steps:
+        # Checkout current branch
+      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+      - name: test
+        id: test
+        uses: ./.github/actions/vault
+        with:
+          roleId: ${{ secrets.ROLE_ID }}
+          secretId: ${{ secrets.SECRET_ID }}
+          secrets-path: 'staging/ssh:staging/ssh'
+          secrets-name: 'SSH_PUBLIC_KEY:SSH_PUBLIC_KEY_RETOOL'
